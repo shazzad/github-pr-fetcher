@@ -10,8 +10,8 @@ headers = {"Authorization": f"Bearer {GITHUB_TOKEN}"}
 
 # List of repositories to fetch PR data from
 repos = [
-    # Add more repositories as needed
     {"owner": "your-username", "repo": "your-repository-name"},
+    {"owner": "another-owner", "repo": "another-repo-name"},
 ]
 
 # GraphQL query to fetch pull requests
@@ -63,14 +63,10 @@ for repo in repos:
             # Write PR content to the file
             for pr in pr_data:
                 file.write(f"PR Number: {pr['number']}\n")
-                # file.write(f"Title: {pr['title']}\n")
-                # file.write(f"Created: {pr['createdAt']}\n")
-                # file.write(f"Body:\n{pr['body']}\n")
-                # file.write("-" * 50 + "\n")
-                if pr["body"]:
-                    file.write(f"{pr['body']}\n")
-                else:
-                    file.write(f"{pr['title']}\n")
+                file.write(f"Title: {pr['title']}\n")
+                file.write(f"Created: {pr['createdAt']}\n")
+                file.write(f"Body:\n{pr['body']}\n")
+                file.write("-" * 50 + "\n")
 
             # Handle pagination
             page_info = data["data"]["repository"]["pullRequests"]["pageInfo"]
